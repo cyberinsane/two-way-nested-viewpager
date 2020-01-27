@@ -5,20 +5,20 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
-class VerticalAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
+class VerticalAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle, val showAnnouncement: Boolean) :
     FragmentStateAdapter(fragmentManager, lifecycle) {
 
     override fun getItemCount(): Int {
-        return 3
+        return if (showAnnouncement) 3 else 2
     }
 
     override fun createFragment(position: Int): Fragment {
-        return if (position == 0) {
-            MainFragment.newInstance("Announcement")
-        } else if (position == 1) {
-            MainFragment.newInstance("Home")
+        if (position == 0 && showAnnouncement) {
+            return AnnouncementFragment.newInstance()
+        } else if ((position == 0 && !showAnnouncement) || (position == 1 && showAnnouncement)) {
+            return HomeFragment.newInstance()
         } else {
-            MainFragment.newInstance("Menu")
+            return MenuFragment.newInstance()
         }
     }
 }

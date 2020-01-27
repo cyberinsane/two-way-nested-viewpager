@@ -15,11 +15,11 @@ class HorizontalAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) 
 
     override fun createFragment(position: Int): Fragment {
         return if (position == 0) {
-            MainFragment.newInstance("Account")
+            AccountFragment.newInstance()
         } else if (position == 1) {
             VerticalPagerFragment.newInstance()
         } else {
-            MainFragment.newInstance("Bag")
+            BagFragment.newInstance()
         }
     }
 }

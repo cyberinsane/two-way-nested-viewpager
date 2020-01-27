@@ -1,0 +1,3 @@
+package com.cyberinsane.twowayviewpager.event
+
+class ToggleAnnouncement

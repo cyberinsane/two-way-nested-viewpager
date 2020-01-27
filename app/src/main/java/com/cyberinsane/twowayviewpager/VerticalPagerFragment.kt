@@ -17,10 +17,46 @@ class VerticalPagerFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_vertical_pager, container, false)
-        view.verticalPager.adapter = VerticalAdapter(childFragmentManager, lifecycle)
-        view.verticalPager.currentItem = 1
-        view.verticalPager.offscreenPageLimit = 2
+        initVerticalPager(view, isCreate = true, showAnnouncement = true)
         return view
+    }
+
+    fun toggleAnnouncement() {
+        if (view?.verticalPager?.adapter?.itemCount == 2) {
+            showAnnouncement()
+        } else {
+            removeAnnouncement()
+        }
+    }
+
+    private fun showAnnouncement() {
+        view?.let {
+            initVerticalPager(it, isCreate = false, showAnnouncement = true)
+        }
+    }
+
+    private fun removeAnnouncement() {
+        view?.let {
+            initVerticalPager(it, isCreate = false, showAnnouncement = false)
+        }
+    }
+
+    fun navigateToAnnouncement() {
+        view?.verticalPager?.setCurrentItem(0, true)
+    }
+
+    fun navigateToHome() {
+        view?.verticalPager?.setCurrentItem(1, true)
+    }
+
+    fun navigateToMenu() {
+        view?.verticalPager?.setCurrentItem(2, true)
+    }
+
+    private fun initVerticalPager(view: View, isCreate: Boolean, showAnnouncement: Boolean) {
+        view.verticalPager?.adapter = VerticalAdapter(childFragmentManager, lifecycle, showAnnouncement)
+        view.verticalPager?.currentItem = if (isCreate && showAnnouncement) 1 else 0
+        view.verticalPager?.offscreenPageLimit = 2
     }
 
 }
