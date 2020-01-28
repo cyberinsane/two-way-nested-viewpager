@@ -1,3 +1,3 @@
-package com.cyberinsane.twowayviewpager.event
+package com.cyberinsane.event
 
 class NavigateEvent(val navigate: Navigate, val animate: Boolean)

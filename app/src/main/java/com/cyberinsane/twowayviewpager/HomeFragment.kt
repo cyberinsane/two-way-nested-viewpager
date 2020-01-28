@@ -5,9 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.cyberinsane.twowayviewpager.event.Navigate
-import com.cyberinsane.twowayviewpager.event.NavigateEvent
-import com.cyberinsane.twowayviewpager.event.ToggleAnnouncement
+import com.cyberinsane.R
+import com.cyberinsane.event.Navigate
+import com.cyberinsane.event.NavigateEvent
+import com.cyberinsane.event.ToggleAnnouncement
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import org.greenrobot.eventbus.EventBus
 

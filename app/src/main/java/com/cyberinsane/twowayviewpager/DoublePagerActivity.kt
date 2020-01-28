@@ -2,19 +2,20 @@ package com.cyberinsane.twowayviewpager
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.cyberinsane.twowayviewpager.event.Navigate
-import com.cyberinsane.twowayviewpager.event.NavigateEvent
-import com.cyberinsane.twowayviewpager.event.ToggleAnnouncement
-import kotlinx.android.synthetic.main.activity_main.*
+import com.cyberinsane.R
+import com.cyberinsane.event.Navigate
+import com.cyberinsane.event.NavigateEvent
+import com.cyberinsane.event.ToggleAnnouncement
+import kotlinx.android.synthetic.main.activity_double_pager.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 
-class MainActivity : AppCompatActivity() {
+class DoublePagerActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        horizontalPager.adapter = HorizontalAdapter(supportFragmentManager, lifecycle)
+        setContentView(R.layout.activity_double_pager)
+        horizontalPager.adapter = HorizontalNestedAdapter(supportFragmentManager, lifecycle)
         horizontalPager.offscreenPageLimit = 2
         horizontalPager.currentItem = 1
 

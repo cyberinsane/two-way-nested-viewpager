@@ -14,7 +14,7 @@ class VerticalAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle, va
 
     override fun createFragment(position: Int): Fragment {
         if (position == 0 && showAnnouncement) {
-            return AnnouncementFragment.newInstance()
+            return AnnouncementFragment.newInstance(false)
         } else if ((position == 0 && !showAnnouncement) || (position == 1 && showAnnouncement)) {
             return HomeFragment.newInstance()
         } else {

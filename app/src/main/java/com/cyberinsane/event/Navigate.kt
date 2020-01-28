@@ -1,4 +1,4 @@
-package com.cyberinsane.twowayviewpager.event
+package com.cyberinsane.event
 
 enum class Navigate {
 

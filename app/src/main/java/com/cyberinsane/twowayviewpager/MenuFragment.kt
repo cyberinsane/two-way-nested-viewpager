@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.cyberinsane.twowayviewpager.event.Navigate
-import com.cyberinsane.twowayviewpager.event.NavigateEvent
-import kotlinx.android.synthetic.main.fragment_announcement.view.*
+import com.cyberinsane.R
+import com.cyberinsane.event.Navigate
+import com.cyberinsane.event.NavigateEvent
 import kotlinx.android.synthetic.main.fragment_menu.view.*
 import org.greenrobot.eventbus.EventBus
 
