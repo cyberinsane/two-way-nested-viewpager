@@ -24,6 +24,10 @@ class MenuFragment : Fragment() {
             EventBus.getDefault().post(NavigateEvent(Navigate.Home, true))
         }
 
+        view.addToBag.setOnClickListener {
+            EventBus.getDefault().post(NavigateEvent(Navigate.Bag, true))
+        }
+
         return view
     }
 

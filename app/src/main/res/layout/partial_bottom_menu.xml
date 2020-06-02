@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     app:behavior_hideable="false"
-    app:behavior_peekHeight="50dp"
+    app:behavior_peekHeight="56dp"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
     <com.google.android.material.card.MaterialCardView
@@ -20,30 +20,64 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
+            <FrameLayout
                 android:id="@+id/drawer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <ImageView
+                    android:id="@+id/bottomNavAccount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="56dp"
+                    android:layout_gravity="start"
+                    android:alpha="0"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@null"
+                    android:padding="16dp"
+                    android:src="@drawable/ic_account" />
+
+                <ImageView
+                    android:id="@+id/bottomNavBag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="56dp"
+                    android:layout_gravity="end"
+                    android:alpha="0"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@null"
+                    android:padding="16dp"
+                    android:src="@drawable/ic_bag" />
+
                 <View
                     android:layout_width="120dp"
                     android:layout_height="4dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="8dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="12dp"
                     android:background="@color/fillColor" />
 
                 <TextView
                     android:id="@+id/navMenu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="24dp"
+                    android:drawablePadding="-2dp"
                     android:letterSpacing="0.17"
                     android:text="@string/menu" />
 
-            </LinearLayout>
+                <!--                <TextView-->
+                <!--                    android:id="@+id/navHome"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_gravity="center"-->
+                <!--                    android:layout_marginTop="10dp"-->
+                <!--                    android:layout_marginBottom="16dp"-->
+                <!--                    android:drawableBottom="@drawable/ic_arrow_down"-->
+                <!--                    android:drawablePadding="-2dp"-->
+                <!--                    android:letterSpacing="0.17"-->
+                <!--                    android:text="@string/home" />-->
+
+            </FrameLayout>
 
             <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
@@ -260,31 +294,12 @@
 
                     </LinearLayout>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/fillColorLight" />
-
-                    <LinearLayout
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/addToBag"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="16dp">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:contentDescription="@null"
-                            android:src="@drawable/ic_place_holder" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="16dp"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="16dp"
-                            android:background="@color/fillColorLight" />
-
-                    </LinearLayout>
+                        android:layout_margin="8dp"
+                        android:text="Add To Bag" />
 
                     <View
                         android:layout_width="match_parent"

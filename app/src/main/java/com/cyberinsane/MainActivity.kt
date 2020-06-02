@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.cyberinsane.bottomsheet.BottomSheetMenuActivity
+import com.cyberinsane.bottomsheetannouncement.BottomSheetAnnouncementMenuActivity
 import com.cyberinsane.twowayviewpager.DoublePagerActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -19,6 +20,10 @@ class MainActivity : AppCompatActivity() {
 
         bottomSheet.setOnClickListener {
             startActivity(Intent(this, BottomSheetMenuActivity::class.java))
+        }
+
+        bottomSheetAnnouncement.setOnClickListener {
+            startActivity(Intent(this, BottomSheetAnnouncementMenuActivity::class.java))
         }
 
     }

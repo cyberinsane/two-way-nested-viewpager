@@ -6,13 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.cyberinsane.R
+import com.cyberinsane.bottomsheetannouncement.VerticalAnnouncementHomeAdapter
 import kotlinx.android.synthetic.main.fragment_vertical_pager.view.*
 
 class VerticalPagerFragment : Fragment() {
 
     companion object {
-        fun newInstance(): VerticalPagerFragment {
-            return VerticalPagerFragment()
+        fun newInstance(isDrawerAnnouncement: Boolean): VerticalPagerFragment {
+            val bundle = Bundle()
+            bundle.putBoolean("isDrawerAnnouncement", isDrawerAnnouncement)
+            val fragment = VerticalPagerFragment()
+            fragment.arguments = bundle
+            return fragment
         }
     }
 
@@ -55,9 +60,14 @@ class VerticalPagerFragment : Fragment() {
     }
 
     private fun initVerticalPager(view: View, isCreate: Boolean, showAnnouncement: Boolean) {
-        view.verticalPager?.adapter = VerticalAdapter(childFragmentManager, lifecycle, showAnnouncement)
-        view.verticalPager?.currentItem = if (isCreate && showAnnouncement) 1 else 0
-        view.verticalPager?.offscreenPageLimit = 2
+        if (arguments?.getBoolean("isDrawerAnnouncement") == true) {
+            view.verticalPager?.adapter = VerticalAnnouncementHomeAdapter(childFragmentManager, lifecycle)
+            view.verticalPager?.currentItem = 1
+        } else {
+            view.verticalPager?.adapter = VerticalAdapter(childFragmentManager, lifecycle, showAnnouncement)
+            view.verticalPager?.currentItem = if (isCreate && showAnnouncement) 1 else 0
+            view.verticalPager?.offscreenPageLimit = 2
+        }
     }
 
 }

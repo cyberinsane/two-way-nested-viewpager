@@ -46,4 +46,21 @@
         android:layout_marginEnd="16dp"
         android:text="@string/demo" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="56dp"
+        android:gravity="start"
+        android:text="Bottom Sheet Menu + Vertical Announcement"
+        android:textSize="18sp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/bottomSheetAnnouncement"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/demo" />
+
 </LinearLayout>

@@ -1,4 +1,4 @@
-package com.cyberinsane.bottomsheet
+package com.cyberinsane.bottomsheetannouncement
 
 import android.content.res.Resources
 import android.os.Bundle
@@ -13,6 +13,7 @@ import com.cyberinsane.R
 import com.cyberinsane.event.Navigate
 import com.cyberinsane.event.ToggleAnnouncement
 import com.cyberinsane.twowayviewpager.AnnouncementFragment
+import com.cyberinsane.twowayviewpager.VerticalPagerFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCallback
 import kotlinx.android.synthetic.main.activity_bottom_sheet_menu.*
@@ -25,10 +26,11 @@ import org.greenrobot.eventbus.Subscribe
 import kotlin.math.absoluteValue
 
 
-class BottomSheetMenuActivity : AppCompatActivity() {
+class BottomSheetAnnouncementMenuActivity : AppCompatActivity() {
 
     private var sheetBehavior: BottomSheetBehavior<*>? = null
     private var showBag: Boolean = false
+    private var showAccount: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,7 +67,7 @@ class BottomSheetMenuActivity : AppCompatActivity() {
         //Get screen size
         val screenWidth = Resources.getSystem().displayMetrics.widthPixels.toFloat()
 
-        horizontalPager.adapter = HorizontalAdapter(supportFragmentManager, lifecycle)
+        horizontalPager.adapter = HorizontalAnnouncementAdapter(supportFragmentManager, lifecycle)
         horizontalPager.offscreenPageLimit = 2
         horizontalPager.currentItem = 1
 
@@ -149,6 +151,14 @@ class BottomSheetMenuActivity : AppCompatActivity() {
         val navMenuText = findViewById<TextView>(R.id.navMenu)
         val navHomeText = findViewById<TextView>(R.id.navHome)
 
+        val bottomAccount = findViewById<View>(R.id.bottomNavAccount)
+        val bottomBag = findViewById<View>(R.id.bottomNavBag)
+
+
+        bottomAccount.setOnClickListener { navigate(Navigate.Account, true) }
+        bottomBag.setOnClickListener { navigate(Navigate.Bag, true) }
+
+
         val maxMargin = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16f, resources.displayMetrics).toInt()
         setDrawerMargin(maxMargin)
 
@@ -158,6 +168,21 @@ class BottomSheetMenuActivity : AppCompatActivity() {
                 val margin = (1 - slideOffset) * maxMargin
                 setDrawerMargin(margin.toInt())
                 blackout.alpha = slideOffset
+
+                println("offset " + slideOffset)
+
+                if (slideOffset > 0.8) {
+                    bottomAccount.alpha = slideOffset
+                    bottomBag.alpha = slideOffset
+
+                    navMenuText.text = "HOME"
+
+                } else {
+                    bottomAccount.alpha = 0f
+                    bottomBag.alpha = 0f
+
+                    navMenuText.text = "MENU"
+                }
 
                 //                navHomeText.alpha = slideOffset
                 //                navMenuText.alpha = (1 - slideOffset)
@@ -174,17 +199,22 @@ class BottomSheetMenuActivity : AppCompatActivity() {
                             navigate(Navigate.Bag, true)
                         }
 
-                        navMenuText.alpha = 0f
-                        navMenuText.text = "MENU"
-                        navMenuText.animate().alpha(1f).duration = 500
+                        if (showAccount) {
+                            showAccount = false
+                            navigate(Navigate.Account, true)
+                        }
+
+                        //                        navMenuText.alpha = 0f
+                        //                        navMenuText.text = "MENU"
+                        //                        navMenuText.animate().alpha(1f).duration = 500
                     }
                     BottomSheetBehavior.STATE_EXPANDED -> {
                         setDrawerMargin(0)
                         blackout.alpha = 1f
 
-                        navMenuText.alpha = 0f
-                        navMenuText.text = "HOME"
-                        navMenuText.animate().alpha(1f).duration = 500
+                        //                        navMenuText.alpha = 0f
+                        //                        navMenuText.text = "HOME"
+                        //                        navMenuText.animate().alpha(1f).duration = 500
                     }
                     else -> {
                         // no-op
@@ -204,11 +234,11 @@ class BottomSheetMenuActivity : AppCompatActivity() {
         EventBus.getDefault().unregister(this)
     }
 
-
     @Subscribe
     fun onToggleAnnouncement(event: ToggleAnnouncement) {
-        supportFragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_down, R.anim.slide_up)
-            .add(android.R.id.content, AnnouncementFragment.newInstance(true), "Announcement").commit()
+        supportFragmentManager.fragments.firstOrNull { it is VerticalPagerFragment }?.let {
+            (it as VerticalPagerFragment).navigateToAnnouncement()
+        }
     }
 
     fun setDrawerMargin(margin: Int) {
@@ -220,7 +250,12 @@ class BottomSheetMenuActivity : AppCompatActivity() {
     private fun navigate(navigate: Navigate, animate: Boolean) {
         when (navigate) {
             Navigate.Account -> {
-                horizontalPager.setCurrentItem(0, animate)
+                if (sheetBehavior?.state == BottomSheetBehavior.STATE_EXPANDED) {
+                    showAccount = true
+                    sheetBehavior?.state = BottomSheetBehavior.STATE_COLLAPSED
+                } else {
+                    horizontalPager.setCurrentItem(0, animate)
+                }
             }
             Navigate.Bag -> {
                 if (sheetBehavior?.state == BottomSheetBehavior.STATE_EXPANDED) {
